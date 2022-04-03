@@ -111,3 +111,11 @@ This will register our `netflix` app to the project. Without that, the app is cr
 We won't explain all the files and folders that are newly created under `netflix` app folder now. Let's just explain `views.py` and `models.py`:
 - **views.py**: it is the file that will contain our views described at the top. Each view is a class, and we will cover them in deep later in the course.
 - **models.py**: It's the file that contains our models. As described above, in Django our database is represented by Django classes.
+
+
+## Design our database
+We have created our project and added our main app. Now let's design our database according to our features. Remember, each model is a python class and inherits from the internal Django class `django.db.models.Model`.
+
+- Open the `models.py` file that is inside `netflix` directory.
+
+- We have users that will register and watch movies. By default, Django have what we call `contribs` which are pre-made modules to ease our work. From those contribs we have a default `User` model. You can customize the default Django `User` model as described [here](https://docs.djangoproject.com/en/4.0/topics/auth/customizing/). But, in this tutorial, we will just use the default one.
