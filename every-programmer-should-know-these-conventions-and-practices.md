@@ -12,3 +12,8 @@ I won’t really detail or give examples to these rules, as each of them require
 
 1. **Take care of your code quality**
 It implies that you write readable code. Use styling rules related to your programming language or technology and be consistent about them (For instance in python, the coding style conventions are described in PEP 8 of the documentation). You can install a linting extension related to your programming language/technology in your IDE. It will enforce your code quality and give you good habits.
+
+
+2. **Give meaningful names**
+Give a meaningful name to your variables, functions, class, and packages. It will help understand the big picture of your codebase without even reading the implementation details.
+
