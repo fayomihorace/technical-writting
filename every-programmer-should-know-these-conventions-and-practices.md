@@ -25,3 +25,7 @@ Avoid as much as possible repeating your code. It will first reduce your codebas
 
 4. **Write short functions that handle specific tasks**
 Keep your functions as short as possible and make them handle a single task. Plus, it will help for code reusability and code refactoring.
+
+
+5. **Well document your code**
+Add useful comments and document your functions, classes, and packages as much as possible. Add description and type-hint for function parameters and return values. But, avoid obvious comments. It will also help to understand the big picture of your codebase without even reading the implementation details. And some of your IDE extensions could even help you automatically generate a documentation for your software if it's well documented.
