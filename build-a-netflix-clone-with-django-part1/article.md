@@ -31,3 +31,20 @@ Django is one of the most popular Frameworks to build full-stack websites and al
 - What are **Views**: *Views* are the listeners to users' actions on the *templates*. User action might trigger a request to a *View*. The view will perform an operation related to handling user requests, if required it will interact with the database (throughout *models*) and return a response to the user if needed. The response could be another template or html page, or a Json response or even another type of response.
 
 - In addition, an important thing to know for the beginning, is that a Django project is divided into small reusable pieces (python modules) called **apps**.
+
+
+## Django installation
+To install Django on your system, I advise you to:
+
+1. work on [a virtual environnemt](https://docs.python.org/3/library/venv.html) or a conda workspace. But first, make sure python is installed on your computer.
+
+2. Create a `requirements.txt` file that will contain the list of python libraries and their versions required by our project to work well on any computer. For now, we just need `Django` so our `requirements.txt` will just contain one line like this:
+
+```
+Django==4.0.2
+```
+At the time of this article, the latest stable version of Django is `4.0.2`.
+
+3. Then run `pip install -r requirements.txt` or  `python -m pip install requirements.txt` (or it could also be `python3` instead of just `python` or `pip3` instead of `pip`). That will install all the packages listed in the file with the specified versions.
+
+
