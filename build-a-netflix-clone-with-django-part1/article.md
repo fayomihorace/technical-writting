@@ -340,7 +340,6 @@ Each Django model has something called Manager and comes with a default one name
 - **Get all movies***: it's achieved with `Movie.objects.all()`.
 
 
-
 ## Django Shell: play with our data
 To quickly test our models and the manager, Django provides a very useful tool called **Django Shell**.
 - Open a terminal on VSCode (by default it will be opened ad the root of the project).
@@ -371,3 +370,8 @@ Then run `Movie.objects.count()` to print the count again. It should display `1`
 - You can exit the Django shell by running: `exit()`. 
 
 So those are basics operation on our model performed on `Django shell` so you'll start taking hands, We will see more in the coming parts of this course.
+
+
+## Django ORM
+Django models are class abstractions that represents our database, Even if we perform operations using either the default model manager (`Movie.objects.create()`) or on the model instance `new_movie.save()`, all those operations are translated in background into SQL queries by Django ORM (Object-Relational Mapper). Django's ORM is just a pythonical way to create SQL to queries, manipulate our database and get results in a pythonic fashion. Awesome right !!!
+
