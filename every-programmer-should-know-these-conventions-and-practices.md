@@ -1,3 +1,5 @@
+# Every programmer should know these conventions and practices
+
 Without rules and standards, we would be living in total chaos, and if every programmer had the freedom to do or write whatever he wanted as code, we would probably still be in the time where computers could occupy an entire apartment 😁.
 
 
