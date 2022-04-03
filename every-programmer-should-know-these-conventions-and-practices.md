@@ -34,5 +34,11 @@ Add useful comments and document your functions, classes, and packages as much a
 6. **Avoid using Magic numbers or hardcoded values in your code**
 It's will save your life and contribute to your codebase maintainability.
 
+
 7. **Limit code line length to a standard value (80 chars for instance)**
 It improves code readability as well.
+
+
+**Very Important**
+
+- **Test your code**. Write test (at least unit tests) cases as much as you can, especially when the feature is tricky or complex.
