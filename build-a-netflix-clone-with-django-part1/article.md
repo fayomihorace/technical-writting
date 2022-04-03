@@ -424,3 +424,107 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 That means, the server has started and is available at host `http://127.0.0.1:8000/`. You can specify your own port with `python manage.py runserver 0.0.0.0:<your_port>`.
+
+
+
+### Login to the Admin interface and play with data
+- Open your favorite browser (me I use chrome).
+- Type the development URL, you should see this page
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g67t2647fe3ibeypvdk9.png)
+
+- Open the admin page: got to `http://127.0.0.1:8000/admin/` on the browser. It looks like this:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/e23380s9g54cpnmaxvh1.png)
+-It's the login page. Enter the credentials for the super user (username = "admin", password = "admin") and validate the form.
+- You'll be redirected to the admin dashboard presented below:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pc5udrkrd9cfdgwn0ns7.png)
+
+We will come back later on `User` and `Group`. Let's play with our `Media`, `Category`, and `Tag`. Click on `Category` and add some categories. The interface is intuitive. You have the `Add` button at the top right corner.
+
+- Add Tags with the name `Trending`, `Popular`. Set the description you want.
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ap1d9gummk7ehkf7w9wg.png)
+
+- Add categories named `Action` , `Adventure`, `Romance`, `Thriller`. 
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rcho5ucgfnzgpctmpra1.png)
+
+- Add **Spider-Man: No Way Home** movie:
+    - Add `Spider-Man: No Way Home` for the name and description
+    - Select the category
+    - Select tags (To select multiple tags as a movie could have more that one tag, keep this pressed down and select the tags with right mouse clicks)
+    - Download the image from the internet to your computer and add it to the `preview-image` field. 
+
+Currently, the movie page looks like this:
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rjs0n9io8acokck6qlxe.png)
+We can a bit customize Django admin to allow super users to see the `preview_image` and `description` of a movie.
+- Open `admin.py` file
+- Remove line `admin.site.register(Movie)` And add these code:
+```python
+from django.utils.html import format_html # Add this line
+...
+...
+# add the lines below
+class MovieAdmin(admin.ModelAdmin):
+
+    def preview(self, movie):
+        """Render preview image as html image."""
+
+        return format_html(
+            f'<img style="height: 200px" src="/media/{movie.preview_image}" />'
+        )
+
+    def video(self, movie):
+        """Render movie video as html image."""
+
+        return format_html(
+            '''
+            <video width="320" height="240" controls>
+                <source src="%s" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>''' % movie.file
+        )
+
+    preview.short_description = 'Movie image'
+    video.short_description = 'Movie video'
+    list_display = ['name', 'preview', 'video', 'description']
+
+admin.site.register(Movie, MovieAdmin)
+```
+
+- We used the Django class `django.contrib.admin.ModelAdmin` to customize how our Movie will be displayed. We used the django formatter `django.utils.html.format_html` to render the `preview_image` and `file` video as HTML.
+- With `list_display = ['name', 'preview', 'video', 'description']` we ask django to display the computed `preview` and `video` and also the `name` and `description` attributes of each `Movie` record of the database.
+
+And this is the result:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mavmd6ae8sz1no13ad1h.png)
+
+NB: The full source code is available here:  [https://github.com/fayomihorace/django-netflix-clone](https://github.com/fayomihorace/django-netflix-clone)
+
+
+### Congratulations.
+We are at the end of this first part.
+
+
+# Summary
+In this tutorial you've learned
+- what is Django
+- how to create a Django project
+- how to create an app and link it to the project
+- the basics Django files architectures
+- the basics Django settings
+- what is a model and how to create models
+- How to use the basic Django model fields
+- what is Django ORM
+- what is a Django Model manager and how to perform basic database operations on them
+- How to use Django Shell to easily play with our models
+- what are migrations, and how to create them
+- How to start a Django development server
+- what are statics files and media files and how to set up them
+- How to register your models with Django admin and create a superuser
+- How to manage our database using the Django admin interface.
+
+
+If you faced any blocker or error while following this tutorial, please drop a comment, I'll reply to help you as soon as possible. Excited to have you in part 2 of this tutorial-course. 
