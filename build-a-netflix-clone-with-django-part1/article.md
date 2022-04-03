@@ -94,3 +94,20 @@ Then enter the project:
 `code .`
 
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hwvo6xvf9eqxurp1dyxb.png)
+
+
+## Create our working app
+The default app is meant to be a centralizes app. Let's create another app named `netflix` to handle our `Netflix` features. 
+- On VS code open a new terminal by clicking `Terminal -> New terminal` from the top horizontal bar menu. It should open a terminal at the root project directory.
+- Then type this command: `django-admin startapp netflix`.
+A new folder named `netflix` will be created:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/20lzu36fvbsx04i6l8q3.png)
+- open the `settings.py` file and add `netflix` app into `INSTALLED_APPS` setting as described above:
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/en6c7aqtj5je3jecb6i7.png)
+This will register our `netflix` app to the project. Without that, the app is created but not linked to the project.
+
+
+We won't explain all the files and folders that are newly created under `netflix` app folder now. Let's just explain `views.py` and `models.py`:
+- **views.py**: it is the file that will contain our views described at the top. Each view is a class, and we will cover them in deep later in the course.
+- **models.py**: It's the file that contains our models. As described above, in Django our database is represented by Django classes.
