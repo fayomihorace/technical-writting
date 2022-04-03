@@ -338,3 +338,36 @@ Now that we see that our database was already set up but understood which settin
 Each Django model has something called Manager and comes with a default one named `objects`. It allows us to perform queries to the database from our model. For example, basic queries we can do on the `Movie` model are:
 - **Create a movie***: it's achieved with `Movie.objects.create(name="Avatar")`
 - **Get all movies***: it's achieved with `Movie.objects.all()`.
+
+
+
+## Django Shell: play with our data
+To quickly test our models and the manager, Django provides a very useful tool called **Django Shell**.
+- Open a terminal on VSCode (by default it will be opened ad the root of the project).
+- Run: `python man shell`. A new command prompt will be shown.
+- Import our `Movie` models: `from netflix.models import Movie`
+- Create a Movie named `Dracula3`: Type `Movie.objects.create(name="Dracula3")` and press `enter` to execute just that line. We should see this `<Movie: Movie object (1)>`. Now we can ask Django to display us the name of the movie instead of `object (1)`. To do that by adding `__str__` method to our model class like this:
+```python
+class Movie(models.Model):
+    """Movie model class."""
+
+    # Add this function
+    def __str__(self):
+        return self.name
+...
+```
+Add the function to `Category` and `Tag` models in order to display their names as well.
+- List all Movie to be sure that `Dracula3` has been created: type `Movie.objects.all()` and press `enter`. Now we should see the name of the movie displayed.
+- We can also create a movie in another way. Type
+`new_movie = Movie(name="Harry potter3")` and press `enter`.
+Then after type
+`new_movie.save()` and press `enter`.
+- You can check that the `watch_count` of our movie is `0`. Run `new_movie.watch_count`. It should display: `0`.
+- We can update the count to any number. Run `new_movie.watch_count = 10` Press `enter` and after run `new_movie.save()` to save the changes.
+Then print again the `watch_count` by running `new_movie.watch_count`: you should see `10`. 
+- You can show the number of movies in the database. Run `Movie.objects.count()`. Should print  `2`.
+- You can remove a movie: run `new_movie.delete()`.
+Then run `Movie.objects.count()` to print the count again. It should display `1`.
+- You can exit the Django shell by running: `exit()`. 
+
+So those are basics operation on our model performed on `Django shell` so you'll start taking hands, We will see more in the coming parts of this course.
