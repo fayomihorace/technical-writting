@@ -29,3 +29,10 @@ Keep your functions as short as possible and make them handle a single task. Plu
 
 5. **Well document your code**
 Add useful comments and document your functions, classes, and packages as much as possible. Add description and type-hint for function parameters and return values. But, avoid obvious comments. It will also help to understand the big picture of your codebase without even reading the implementation details. And some of your IDE extensions could even help you automatically generate a documentation for your software if it's well documented.
+
+
+6. **Avoid using Magic numbers or hardcoded values in your code**
+It's will save your life and contribute to your codebase maintainability.
+
+7. **Limit code line length to a standard value (80 chars for instance)**
+It improves code readability as well.
