@@ -119,3 +119,98 @@ We have created our project and added our main app. Now let's design our databas
 - Open the `models.py` file that is inside `netflix` directory.
 
 - We have users that will register and watch movies. By default, Django have what we call `contribs` which are pre-made modules to ease our work. From those contribs we have a default `User` model. You can customize the default Django `User` model as described [here](https://docs.djangoproject.com/en/4.0/topics/auth/customizing/). But, in this tutorial, we will just use the default one.
+
+
+### Movie models
+- We will have movies to watch. Let's create a model class to represent a movie.
+
+```python
+class Movie(models.Model):
+    """Movie model class."""
+
+```
+
+That means, we will have a table named `Movie` in our database.
+
+Each movie will have a name, let's add it:
+
+```python
+CHARS_MAX_LENGTH: int = 150
+
+class Movie(models.Model):
+    """Movie model class."""
+
+    name = models.CharField(max_length=CHARS_MAX_LENGTH, blank=True)
+```
+The name column should be a string that why we used the Django model field named `CharField`. We've decided to limit the name length to 150 chars.
+With the line `CHARS_MAX_LENGTH: int = 150` we define a constant to avoid using magic numbers in our code that we will use.
+With line `name = models.CharField(max_length=CHARS_MAX_LENGTH, blank=True)`. we ask Django to add a column named `name` into our `movies` table and each record of movie should not have a name with more than 150 chars. `blank=True` means that, when we want to create or modify a record of the movie, we don't need to provide the name value. You'll understand more in the following. 
+
+- Each movie could have a description, let's add it with this line:
+
+`description = models.TextField(blank=True, null=True)`
+
+For it we use `TextField` instead of `CharField` as the description length is not predictable, but we know movies names are not that long.
+Note `null=True` means that we can create a Movie without specifying a value for the description. If `null=True` was not specified like for `name`, trying to create a movie without providing `description` will raise an exception. 
+We might need to keep the creation date of the movie, let do it:
+`date_created = models.DateTimeField(auto_now_add=True)`.
+
+Not that we used `DateTimeField` because it's a date and we set attribute `auto_now_add` to `True` so the creation date will automatically be set by Django during object creation.
+
+Our `models.py` should look like this now:
+
+
+```python
+from django.utils import timezone
+from django.db import models
+
+
+class Movie(models.Model):
+    """Movie model class."""
+
+    name = models.CharField(max_length=CHARS_MAX_LENGTH, blank=True)
+    description = models.TextField(blank=True, null=True)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+```
+
+- Each movie should have a category. It's better to store categories in the database as well so we can manage them. Let's create a Category model before the Movie model with `name` and `description` (the category creation date is not really useful):
+
+```python
+class Category(models.Model):
+    """Category model class."""
+
+    name = models.CharField(max_length=CHARS_MAX_LENGTH, blank=True)
+    description = models.TextField(blank=True, null=True)
+```
+
+- We will suppose for this tutorial that a movie could have only one category, so that defines a OneToMany relationship. In Django it's represented by `django.db.models.ForeignKey`. Let's add it:
+`category = models.ForeignKey(
+        Category,
+        models.CASCADE
+    )`
+
+The attribute `models.CASCADE` mean that if the category is deleted, all its movies should be deleted to avoid data invalid values (For example having some movie with non-existant category).
+
+- Each movie will have one or more tags. It's better to store tags as well in the database. Let's create a Tag model before the Movie model with `name` and `description` (the category creation date is not really useful):
+
+```python
+class Tag(models.Model):
+    """Tag model class."""
+
+    name = models.CharField(max_length=CHARS_MAX_LENGTH, blank=True)
+    description = models.TextField(blank=True, null=True)
+```
+
+- We will suppose for this tutorial that a movie could have only one category, so that defines a ManyToMany relationship. In django it's represented by `django.db.models.ManyToManyField`. Let's add it:
+`category = models.ManyToManyField(Tag)`.
+
+Note: The attribute `models.CASCADE` mean that if a tag is deleted, all it's related movies will also be deleted to avoid data invalid values (For example having some movies with non-existant tag).
+
+- We might need some statistics about each movie like the number of people who watched it. Let's add it:
+`watch_count = models.IntegerField(default=0)`.
+Here, as it is a number, we used `IntegerField` and  `default = 0` means that the default value is `0`. And plus, as we defined a default value, even if we don't provide that attribute, django won't raise an exception, but set the attribute to `0`.
+
+- Naturally, we need to store the movie video file. For that 
+Nice there we go. We have all the minimal information for our database. 
