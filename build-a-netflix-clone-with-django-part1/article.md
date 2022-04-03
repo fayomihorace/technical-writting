@@ -395,3 +395,32 @@ That's all.
 
 Note: The admin interface is customizable but we won't cover this in this tutorial.
 
+## Create a superuser
+To manage our admin site we need to create a super user. It's a user with enough privilege to access the administration interface. By default, a created user is not a superuser. We will dive deep into Django authentication and roles in the next parts of this tutorial course.
+To create a superuer run in a porject temrinal in VScode:
+- `python manage.py createsuperuser`. It will ask to enter some values. Let use **admin** for **username**, **admin@admin.com** for the **email**, and type **admin**, for the password.
+It will print some warnings: 
+```
+The password is too similar to the username.
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+Bypass password validation and create a user anyway? [y/N]:
+```
+Press `Y` and continue, we will come back later on that in the next parts of the tutorial.
+
+There we Go.
+
+## Start development server and add some data
+Django comes with an internal light development server. To start it, open a new terminal in the project inside VScode as usual and run:
+`python manage.py runserver`. You'll see this message:
+```
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+February 27, 2022 - 02:28:29
+Django version 4.0.2, using settings 'django_netflix_clone.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+That means, the server has started and is available at host `http://127.0.0.1:8000/`. You can specify your own port with `python manage.py runserver 0.0.0.0:<your_port>`.
