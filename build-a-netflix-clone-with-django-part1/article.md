@@ -291,3 +291,50 @@ class Movie(models.Model):
 ```
 
 There we go.
+
+
+## Django Migrations
+We have finished to set up our basic database. Now we need to create what we call `migrations`. Migrations are Python files containing the definition and history of changes in your models. To create migration we should run the command:
+`python manage.py makemigrations`. Note that we have used the project command tool `manage.py`.
+
+After running the command, we should get this error:
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cgnnjoclual9lztjx9r9.png)
+It's because it's a module required by `ImageField` to work that is not yet installed in our environment. So we can add it to our `requirements.txt` file like this:
+```
+django==4.0.2
+Pillow==9.0.1 # Add this line into requirements.txt
+```.
+Then run `pip install -r requirements.txt` again (it will only install missing modules, in our case `pillow`).
+
+Then run again: `python manage.py makemigrations`.
+You should have this result:
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma098waurm8pu2onsk9c.png).
+
+That will generate some files (migrations) into `migrations` folder under `netflix` module. Those files contain descriptions of our models that will be used to physically create and/update our database.
+
+
+## Migrate database
+To physically create our database, we need to specify the database type in the settings. If you open the `settings.py` file, you'll see:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
+`'ENGINE': 'django.db.backends.sqlite3'` means our database is `SQLite` and `'NAME': BASE_DIR / 'db.sqlite3',` is named `db.sqlite3` and should be at the root of the project. Django support multiple others backend like `MysQL` that we will see in Part5 of this course. For the time being we will stick to the defaults settings.
+
+Now that we see that our database was already set up but understood which setting handle it, let's populate our `db.sqlite3` database with our models throughout migrations. Run `python manage.py migrate`. You'll see a message like this:
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6m3yuzkbmdbe42pt11r6.png)
+
+
+## The model Manager
+Each Django model has something called Manager and comes with a default one named `objects`. It allows us to perform queries to the database from our model. For example, basic queries we can do on the `Movie` model are:
+- **Create a movie***: it's achieved with `Movie.objects.create(name="Avatar")`
+- **Get all movies***: it's achieved with `Movie.objects.all()`.
