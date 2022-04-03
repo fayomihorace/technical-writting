@@ -48,3 +48,49 @@ At the time of this article, the latest stable version of Django is `4.0.2`.
 3. Then run `pip install -r requirements.txt` or  `python -m pip install requirements.txt` (or it could also be `python3` instead of just `python` or `pip3` instead of `pip`). That will install all the packages listed in the file with the specified versions.
 
 
+## Create the Django project
+Let's use **django_netflix_clone** for the project name. (I used underscore because it improves the readability.
+
+- Then run: `django-admin startproject django_netflix_clone`.
+
+Note: `django-admin` is the Django command-line utility. It’s used for common operations in the Django development phase as we will see in the following.
+
+A new folder named `django_netflix_clone` will be created. 
+I advise you to move the `requirements.txt` file into `django_netflix_clone` folder, so it will be inside the project.
+- Run: `mv requirements.txt django_netflix_clone`.
+
+The `django_netflix_clone` project architecture should looks like this now:
+
+![django_netflix_clone project strcucture](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sgoepl3q0s27o7lgbb53.png)
+
+You'll notice that Django has created some files and a default folder with the same name as the project `django_netflix_clone`.
+At the root of the project we should have the following:
+- **manage.py** file: it is a Python file helper used to execute commands related to the project. We will see its uses as we go.
+
+- **django_netflix_clone** folder. We said that a Django project is made of apps. That folder is the default `app` automatically created by Django. It contains some auto-generated files as well. Let's explain a bit them:
+
+- **wsgi.py** (Web Server Gateway Interface): When you want to deploy your Django to production in a real server, this file is used as the entrypoint, to allow the application server to connect to your Django project.
+- **asgi.py** (Asynchronous Server Gateway Interface): To make it simple, it plays the same role as **wsgi.py**, but is for asynchronous web servers and applications. So it's used in the place of **wsgi.py** when your project supports asynchronous tasks.
+- **settings.py**: It's the project configuration file. All the apps and projects settings are defined on it.
+The important settings here are:
+    - `SECRET_KEY`: it's is used to provide a cryptographic signing to the project. It is mostly used to sign session cookies (we will talk about sessions and cookies later in this course). If one were to have this key, they would be able to modify the cookies sent by the application.
+    - `INSTALLED_APPS`: it's an array that contains the list of apps in the project. There are default apps added by Django like `django.contrib.admin` to manage administration (we will cover it later in this tutorial), `django.contrib.auth` to manage authentication, etc... (The apps names a self-explanatory)
+    - `MIDDLEWARE`: Middlewares are functions that are executed before each request. Defaults middlewares are added by django like `django.middleware.security.SecurityMiddleware` to verify the security of request.
+
+We will explain others settings as we go.
+
+- **urls.py**: This file describes all the paths that could be accessed in the project. By default it contains one path (`admin`):
+
+```
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+```
+At this step, we can say that the allowed URLs on our app are `http://my_project_url` and `http://my_project_url/admin/`
+
+Then enter the project:
+- `cd django_netflix_clone`
+- Open the project in a code editor (Me I use VSCode or visual studio code)
+`code .`
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hwvo6xvf9eqxurp1dyxb.png)
