@@ -51,3 +51,10 @@ It improves code readability as well.
 
 
 - **Avoid Hacks in your code**. Avoid tinkering with code, finding a temporary quick fix to work around a problem or bug. That will probably break again later (maybe even in production). Instead, go to the source, take the time to understand the issue, and try to find the right final solution for good. If you found it by help, on a website like StackOverflow for instance, make sure you understand it before adding it to your codebase.
+
+
+That is all for this article, If you have any pearls of wisdom that you think are missing, please let me know in the comment section. I may include them in another article.
+
+---
+I share what I know because:
+> *The more I learn, the more I realize how much I don't know*. (Einstein)
