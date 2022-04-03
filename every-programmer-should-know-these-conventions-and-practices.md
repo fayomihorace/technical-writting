@@ -17,3 +17,6 @@ It implies that you write readable code. Use styling rules related to your progr
 2. **Give meaningful names**
 Give a meaningful name to your variables, functions, class, and packages. It will help understand the big picture of your codebase without even reading the implementation details.
 
+
+3. **Use the DRY (Don't Repeat Yourself) principle**
+Avoid as much as possible repeating your code. It will first reduce your codebase, and if for any reason you have to change or improve that code, you'll change it only once instead of applying the same changes at multiple places.
