@@ -214,3 +214,80 @@ Here, as it is a number, we used `IntegerField` and  `default = 0` means that th
 
 - Naturally, we need to store the movie video file. For that 
 Nice there we go. We have all the minimal information for our database. 
+
+
+
+### Managing static files
+Before that, we will explain how Django manages files. By django serve all files related to the website (html, css, js, images) to the value of `STATIC_URL` parameter in `settings.py` file. And the default value is `/static/`. 
+```python
+STATIC_URL = 'static/'
+``` 
+You can change it with another value, but I recommend you to keep it only if you have a good reason to change it.
+
+During development, Django recommends storing those files are stored in a folder called `static` inside each app.
+
+
+### Managing media files
+Now the files that are uploaded into the projects (like our movies videos) are served to the value of `MEDIA_URL` parameter in `settings.py`. That setting is not there by default, but it recommended value is `/media/` so we have to add it (we could add it right after `STATIC_URL`): 
+```python
+MEDIA_URL = 'media/'
+```
+By default, media files are not stored in the database but in a folder defined by the settings `MEDIA_ROOT`. That setting also was not there so we have to define it.
+
+ ```python
+import os # Add this at the top of the settings.py file
+...
+...
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # Add this line too
+```.
+That means, our movies will be uploaded into a folder named `media` at the root of the directory. We used `os.path.join` and `BASE_DIR` (defined at the top of the file) to get the full path of the folder in the system. That folder didn't exists, so let's create it:
+Make sure to be at the root of the project and run:
+`mkdir media`.
+
+- The last part to finalize the setup of static and media files is to add their values to the path. Open `urls.py` file like this:
+```python
+from django.contrib import admin
+from django.urls import path
+from django.conf import settings            # Add this line
+from django.conf.urls.static import static  # Add this line
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+
+# Add the lines below
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+We have finished to set up static and media files for our project.
+
+We can then use `django.db.models.FileField` to store the link to our movie (media) like this: 
+```python
+file = models.FileField(upload_to='movies/')
+```.
+
+- A last thing, we need a preview picture for our movie. As it's a picture, Let use `django.db.models.ImageField` like this: 
+```python
+preview_image = models.ImageField(upload_to='preview_images/')
+```.
+
+Our final `Movie` class file looks like this:
+```python
+class Movie(models.Model):
+    """Movie model class."""
+
+    name = models.CharField(max_length=CHARS_MAX_LENGTH, blank=True)
+    description = models.TextField(blank=True, null=True)
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)
+    watch_count = models.IntegerField(default=0)
+    file = models.FileField(upload_to='movies/')
+    preview_image = models.ImageField(upload_to='preview_images/')
+    date_created = models.DateTimeField(default=timezone.now)
+
+```
+
+There we go.
