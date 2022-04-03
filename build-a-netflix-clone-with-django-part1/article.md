@@ -375,3 +375,23 @@ So those are basics operation on our model performed on `Django shell` so you'll
 ## Django ORM
 Django models are class abstractions that represents our database, Even if we perform operations using either the default model manager (`Movie.objects.create()`) or on the model instance `new_movie.save()`, all those operations are translated in background into SQL queries by Django ORM (Object-Relational Mapper). Django's ORM is just a pythonical way to create SQL to queries, manipulate our database and get results in a pythonic fashion. Awesome right !!!
 
+
+## Register Admin
+Now that you know how to manipulate your data on the shell, let's see how to manipulate it through a graphical interface.
+Django allows us to easily administrate our database with a powerful tool called **Django Admin**. Basically, it provided an administration interfaces where we can easily list, create, modify, view, and delete items of our database. And to set up the admin features is easy like eating a cake.
+Reminder, it's the contrib `'django.contrib.admin'` that allows provide us that powerful feature.
+
+Open the `admin.py` file under `netflix` folder. And add those lines:
+```python
+from netflix.models import Movie
+from netflix.models import Category
+from netflix.models import Tag
+
+admin.site.register(Movie)
+admin.site.register(Category)
+admin.site.register(Tag)
+```
+That's all.
+
+Note: The admin interface is customizable but we won't cover this in this tutorial.
+
