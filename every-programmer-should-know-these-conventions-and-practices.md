@@ -45,3 +45,6 @@ It improves code readability as well.
 
 
 - **Think big**. Take care of scalability and performance matters. Don't code like if you'll be the only user of your website, even if it's a side project, or don't code like your software will just have 10 or 100 users, think big. Think about what will happen if it came that there are millions or billions of users using it. Won't this database request or loop take a while ? will this code still do the job ? Think about it while coding and improve your code as you go.
+
+
+- **Pay attention to code reviews**. During code reviews you'll learn a lot and also share a lot with others. And the most important thing, during reviews you will catch earlier bugs, and that helps reduce the technical depts. So pay close attention to them.
