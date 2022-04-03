@@ -48,3 +48,6 @@ It improves code readability as well.
 
 
 - **Pay attention to code reviews**. During code reviews you'll learn a lot and also share a lot with others. And the most important thing, during reviews you will catch earlier bugs, and that helps reduce the technical depts. So pay close attention to them.
+
+
+- **Avoid Hacks in your code**. Avoid tinkering with code, finding a temporary quick fix to work around a problem or bug. That will probably break again later (maybe even in production). Instead, go to the source, take the time to understand the issue, and try to find the right final solution for good. If you found it by help, on a website like StackOverflow for instance, make sure you understand it before adding it to your codebase.
